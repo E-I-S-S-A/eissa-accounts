@@ -18,9 +18,9 @@ const Auth = () => {
                     <Outlet/>
                 </div>
             </div>
-            <div className={styles.other_options}>
-                {/* <div>language</div> */}
-            </div>
+            {/* <div className={styles.other_options}>
+                <div>language</div>
+            </div> */}
         </div>
     </div>
 }

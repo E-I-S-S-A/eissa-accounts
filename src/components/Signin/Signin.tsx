@@ -49,7 +49,7 @@ const Signin = () => {
                         isTouched={touchedFields?.password}
                         rules={{
                             required: {
-                                message: "Email is required",
+                                message: "Password is required",
                                 value: true,
                             },
                             pattern: {
