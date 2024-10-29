@@ -59,7 +59,7 @@ const Signin = () => {
                         }}
                     />
                     <p className={styles.create_account_text}>Don't have an account?
-                        <Link to={""} className={styles.link}>
+                        <Link to={"/signup"} className={styles.link}>
                             Sign Up
                         </Link>
 

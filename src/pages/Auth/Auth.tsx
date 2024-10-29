@@ -1,6 +1,7 @@
 import styles from "./Auth.module.css"
 import BrandLogo from "../../assets/svg/brand-logo-curved.svg"
 import Signin from "../../components/Signin/Signin";
+import { Outlet } from "react-router-dom";
 
 const Auth = () => {
     return <div className={styles.main_container}>
@@ -14,7 +15,7 @@ const Auth = () => {
                     </div>
                 </div>
                 <div className={styles.action_container}>
-                    <Signin />
+                    <Outlet/>
                 </div>
             </div>
             <div className={styles.other_options}>
