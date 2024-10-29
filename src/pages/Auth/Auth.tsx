@@ -10,7 +10,7 @@ const Auth = () => {
                     <img src={BrandLogo} alt="EISSA logo" className={styles.brand_logo} />
                     <div className={styles.step_info}>
                         <p className={styles.title}>Signin</p>
-                        <p>Use your EISSA Account</p>
+                        <p>Use your EISSA account</p>
                     </div>
                 </div>
                 <div className={styles.action_container}>

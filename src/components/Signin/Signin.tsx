@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { EissaButton, EissaInputField } from "react-reusable-elements";
 import styles from "./Signin.module.css";
 import { REGEXES } from "../../constants/regexes";
+import { Link } from "react-router-dom";
 
 type FormData = {
     email: string;
@@ -57,6 +58,12 @@ const Signin = () => {
                             },
                         }}
                     />
+                    <p className={styles.create_account_text}>Don't have an account?
+                        <Link to={""} className={styles.link}>
+                            Sign Up
+                        </Link>
+
+                    </p>
                 </div>
                 <EissaButton label="Submit" type="submit" variant="primary" />
             </form>
