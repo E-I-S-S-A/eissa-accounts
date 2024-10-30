@@ -1,8 +1,8 @@
-.signup_container{
+.signup_container {
     height: 100%;
 }
 
-.signup_container form{
+.signup_container form {
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -10,16 +10,31 @@
     align-items: end;
 }
 
-form .fields{
+form .fields {
     width: 100%;
     display: flex;
-    gap: 2rem;
+    gap: 1rem;
     flex-direction: column;
     height: 100%;
     justify-content: center;
 }
 
-form .buttons{
+form .fields>* {
+    width: 100%;
+    margin: 0;
+}
+
+.fields .signin_text {
+    font-size: 0.8rem;
+}
+
+.signin_text .link {
+    padding-left: 1ch;
+    text-decoration: none;
+    color: var(--brand-color);
+}
+
+form .buttons {
     display: flex;
     gap: 1rem;
 }

@@ -3,6 +3,8 @@ import { EissaButton, EissaInputField } from "react-reusable-elements";
 import styles from "./Signup.module.css";
 import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { ROUTES } from "../../constants/routes";
 
 type FormData = {
     firstName: string;
@@ -124,6 +126,12 @@ const Signup = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className={styles.fields}>
                     <Steps />
+                    {
+                        step === 1 &&
+                        <p className={styles.signin_text}>Already have an account?
+                            <Link to={ROUTES.auth.signin} className={styles.link}>Sign In</Link>
+                        </p>
+                    }
                 </div>
                 <div className={styles.buttons}>
 
