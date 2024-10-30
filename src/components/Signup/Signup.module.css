@@ -18,3 +18,8 @@ form .fields{
     height: 100%;
     justify-content: center;
 }
+
+form .buttons{
+    display: flex;
+    gap: 1rem;
+}

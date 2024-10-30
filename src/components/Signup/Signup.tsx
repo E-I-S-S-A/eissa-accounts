@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { EissaButton, EissaInputField } from "react-reusable-elements";
 import styles from "./Signup.module.css";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 
 type FormData = {
     firstName: string;
@@ -13,6 +13,11 @@ type FormData = {
     confirmPassword: string;
 };
 
+interface SignupContext {
+    step: number;
+    setStep: React.Dispatch<React.SetStateAction<number>>;
+}
+
 const Signup = () => {
     const {
         register,
@@ -20,20 +25,26 @@ const Signup = () => {
         formState: { errors, touchedFields },
     } = useForm<FormData>({ mode: "all" });
 
-    const [step, setStep] = useState<number>(1);
-    const [searchParams, setSearchParams] = useSearchParams();
+    const { step, setStep } = useOutletContext<SignupContext>();
 
     useEffect(() => {
-        setSearchParams({ step: step.toString() });
-    }, [step])
+        return onUnmount();
+    }, [])
+
+    const onUnmount = () => {
+        setStep(1);
+    }
+
+    const onBackPress = () => {
+        setStep(prev => prev - 1)
+    }
 
     const onSubmit = (data: FormData) => {
         if (step === 4) {
             console.log(data);
         }
 
-        const nextStep = step + 1;
-        setStep(nextStep);
+        setStep(prev => prev + 1);
     };
 
     const Steps = () => {
@@ -114,11 +125,23 @@ const Signup = () => {
                 <div className={styles.fields}>
                     <Steps />
                 </div>
-                <EissaButton
-                    label={step < 4 ? "Next" : "Submit"}
-                    type="submit"
-                    variant="primary"
-                />
+                <div className={styles.buttons}>
+
+                    {
+                        step > 1 &&
+                        <EissaButton
+                            label="Back"
+                            type="button"
+                            variant="secondary"
+                            onClick={onBackPress}
+                        />
+                    }
+                    <EissaButton
+                        label={step < 4 ? "Next" : "Submit"}
+                        type="submit"
+                        variant="primary"
+                    />
+                </div>
             </form>
         </div>
     );
