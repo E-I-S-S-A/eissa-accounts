@@ -3,6 +3,7 @@ import { EissaButton, EissaInputField } from "react-reusable-elements";
 import styles from "./Signin.module.css";
 import { REGEXES } from "../../constants/regexes";
 import { Link } from "react-router-dom";
+import { ROUTES } from "../../constants/routes";
 
 type FormData = {
     email: string;
@@ -59,7 +60,7 @@ const Signin = () => {
                         }}
                     />
                     <p className={styles.create_account_text}>Don't have an account?
-                        <Link to={"/signup"} className={styles.link}>
+                        <Link to={ROUTES.auth.signup} className={styles.link}>
                             Sign Up
                         </Link>
 

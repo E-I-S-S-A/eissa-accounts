@@ -8,23 +8,24 @@ import {
 import Auth from './pages/Auth/Auth';
 import Signin from './components/Signin/Signin';
 import Signup from './components/Signup/Signup';
+import { ROUTES } from './constants/routes';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: ROUTES.auth.root,
     element: <Auth />,
     children: [
       {
-        path: "",
-        element: <Navigate to={"/signin"}/>
+        path: ROUTES.auth.root,
+        element: <Navigate to={ROUTES.auth.signin}/>
         
       },
       {
-        path: "signin",
+        path: ROUTES.auth.signin,
         element: <Signin />
       },
       {
-        path: "signup",
+        path: ROUTES.auth.signup,
         element: <Signup />
       }
     ]
