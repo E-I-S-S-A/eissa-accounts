@@ -1,5 +1,5 @@
 {
-  "name": "eissa-authentication",
+  "name": "eissa-accounts",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
