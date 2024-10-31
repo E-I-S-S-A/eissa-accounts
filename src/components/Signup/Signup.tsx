@@ -25,9 +25,12 @@ const Signup = () => {
     const {
         register,
         handleSubmit,
+        watch,
         formState: { errors, touchedFields },
-        trigger
+        trigger,
     } = useForm<FormData>({ mode: "all" });
+
+    const password = watch("password");
 
     const { step, setStep } = useOutletContext<SignupContext>();
 
@@ -40,7 +43,7 @@ const Signup = () => {
     };
 
     const onBackPress = () => {
-        setStep(prev => prev - 1);
+        setStep((prev) => prev - 1);
     };
 
     const onSubmit = async (data: FormData) => {
@@ -48,7 +51,7 @@ const Signup = () => {
             1: ["firstName"],
             2: ["email"],
             3: ["otp"],
-            4: ["password", "confirmPassword"]
+            4: ["password", "confirmPassword"],
         };
 
         const isValid = await trigger(fieldsToValidate[step]);
@@ -57,89 +60,7 @@ const Signup = () => {
             if (step === 4) {
                 console.log(data);
             }
-            setStep(prev => prev + 1);
-        }
-    };
-
-    const Steps = () => {
-        switch (step) {
-            case 1:
-                return (
-                    <>
-                        <EissaInputField
-                            label="First name"
-                            name="firstName"
-                            register={register}
-                            error={errors?.firstName}
-                            rules={{ required: { message: "First name is required", value: true } }}
-                            isTouched={touchedFields?.firstName}
-                        />
-                        <EissaInputField
-                            label="Last name (optional)"
-                            name="lastName"
-                            register={register}
-                            error={errors?.lastName}
-                            isTouched={touchedFields?.lastName}
-                        />
-                    </>
-                );
-            case 2:
-                return (
-                    <>
-                        <EissaInputField
-                            label="Email"
-                            name="email"
-                            register={register}
-                            error={errors?.email}
-                            rules={{
-                                required: { message: "Email is required", value: true }, pattern: {
-                                    message: "Invalid email",
-                                    value: REGEXES.email,
-                                },
-                            }}
-                            isTouched={touchedFields?.email}
-                        />
-                    </>
-                );
-
-            case 3:
-                return (
-                    <>
-                        <EissaInputField
-                            label="Verify OTP"
-                            name="otp"
-                            register={register}
-                            error={errors?.otp}
-                            rules={{ required: { message: "OTP is required", value: true } }}
-                            isTouched={touchedFields?.otp}
-                        />
-                    </>
-                );
-
-            case 4:
-                return (
-                    <>
-                        <EissaInputField
-                            label="Password"
-                            name="password"
-                            register={register}
-                            error={errors?.password}
-                            rules={{ required: { message: "Password is required", value: true } }}
-                            isTouched={touchedFields?.password}
-                        />
-                        <EissaInputField
-                            label="Confirm password"
-                            name="confirmPassword"
-                            register={register}
-                            error={errors?.confirmPassword}
-                            rules={{ required: { message: "Confirm your password", value: true } }}
-                            isTouched={touchedFields?.confirmPassword}
-                        />
-                    </>
-                );
-
-            default:
-                return <></>;
+            setStep((prev) => prev + 1);
         }
     };
 
@@ -147,24 +68,127 @@ const Signup = () => {
         <div className={styles.signup_container}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className={styles.fields}>
-                    <Steps />
                     {
                         step === 1 &&
-                        <p className={styles.signin_text}>Already have an account?
-                            <Link to={ROUTES.auth.signin} className={styles.link}>Sign In</Link>
-                        </p>
+                        <>
+                            <EissaInputField
+                                label="First name"
+                                name="firstName"
+                                register={register}
+                                error={errors?.firstName}
+                                rules={{
+                                    required: {
+                                        message: "First name is required",
+                                        value: true,
+                                    },
+                                }}
+                                isTouched={touchedFields?.firstName}
+                            />
+                            <EissaInputField
+                                label="Last name (optional)"
+                                name="lastName"
+                                register={register}
+                                error={errors?.lastName}
+                                isTouched={touchedFields?.lastName}
+                            />
+                        </>
                     }
+                    {
+                        step === 2 &&
+                        <EissaInputField
+                            label="Email"
+                            name="email"
+                            register={register}
+                            error={errors?.email}
+                            rules={{
+                                required: {
+                                    message: "Email is required",
+                                    value: true,
+                                },
+                                pattern: {
+                                    message: "Invalid email",
+                                    value: REGEXES.email,
+                                },
+                            }}
+                            isTouched={touchedFields?.email}
+                        />
+                    }
+                    {
+                        step === 3 &&
+                        <EissaInputField
+                            label="Verify OTP"
+                            name="otp"
+                            register={register}
+                            error={errors?.otp}
+                            rules={{
+                                required: {
+                                    message: "OTP is required",
+                                    value: true,
+                                },
+                            }}
+                            isTouched={touchedFields?.otp}
+                        />
+                    }
+                    {
+                        step === 4 &&
+                        <>
+                            <EissaInputField
+                                label="Password"
+                                name="password"
+                                register={register}
+                                error={errors?.password}
+                                rules={{
+                                    required: {
+                                        message: "Password is required",
+                                        value: true,
+                                    },
+                                    pattern: {
+                                        message: "Password must be 8+ characters with a letter, number, and special character.",
+                                        value: REGEXES.password,
+                                    },
+                                }}
+                                isTouched={touchedFields?.password}
+                            />
+                            <EissaInputField
+                                label="Confirm password"
+                                name="confirmPassword"
+                                register={register}
+                                error={errors?.confirmPassword}
+                                rules={{
+                                    required: {
+                                        message: "Confirm your password",
+                                        value: true,
+                                    },
+                                    validate: (value) =>
+                                        password === value ||
+                                        "Passwords do not match",
+                                }}
+                                isTouched={touchedFields?.confirmPassword}
+                            />
+                        </>
+                    }
+
+                    {step === 1 && (
+                        <p className={styles.signin_text}>
+                            Already have an account?
+                            <Link
+                                to={ROUTES.auth.signin}
+                                className={styles.link}
+                            >
+                                Sign In
+                            </Link>
+                        </p>
+                    )}
                 </div>
                 <div className={styles.buttons}>
-                    {
-                        step > 1 &&
+                    {step > 1 && (
                         <EissaButton
                             label="Back"
                             type="button"
                             variant="secondary"
                             onClick={onBackPress}
                         />
-                    }
+                    )}
                     <EissaButton
                         label={step < 4 ? "Next" : "Sign Up"}
                         type="submit"
