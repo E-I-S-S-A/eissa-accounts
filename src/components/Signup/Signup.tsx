@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { EissaButton, EissaInputField } from "react-reusable-elements";
+import { EissaButton, EissaCheckbox, EissaInputField, } from "react-reusable-elements";
 import styles from "./Signup.module.css";
 import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
@@ -14,6 +14,7 @@ type FormData = {
     otp: string;
     password: string;
     confirmPassword: string;
+    isShowPassword: boolean;
 };
 
 interface SignupContext {
@@ -31,6 +32,7 @@ const Signup = () => {
     } = useForm<FormData>({ mode: "all" });
 
     const password = watch("password");
+    const isShowPassword = watch("isShowPassword");
 
     const { step, setStep } = useOutletContext<SignupContext>();
 
@@ -134,6 +136,7 @@ const Signup = () => {
                         <>
                             <EissaInputField
                                 label="Password"
+                                type={isShowPassword ? "text" : "password"}
                                 name="password"
                                 register={register}
                                 error={errors?.password}
@@ -151,6 +154,7 @@ const Signup = () => {
                             />
                             <EissaInputField
                                 label="Confirm password"
+                                type={isShowPassword ? "text" : "password"}
                                 name="confirmPassword"
                                 register={register}
                                 error={errors?.confirmPassword}
@@ -165,6 +169,7 @@ const Signup = () => {
                                 }}
                                 isTouched={touchedFields?.confirmPassword}
                             />
+                            <EissaCheckbox label="Show password" name="isShowPassword" register={register} />
                         </>
                     }
 
