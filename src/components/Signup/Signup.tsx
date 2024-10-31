@@ -145,7 +145,7 @@ const Signup = () => {
                         />
                     }
                     <EissaButton
-                        label={step < 4 ? "Next" : "Submit"}
+                        label={step < 4 ? "Next" : "Sign Up"}
                         type="submit"
                         variant="primary"
                     />

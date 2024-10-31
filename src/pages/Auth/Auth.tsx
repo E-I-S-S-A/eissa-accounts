@@ -29,8 +29,8 @@ const Auth = () => {
         }
 
         setHeader({
-            title: "Signin",
-            description: "Use your Eissa account"
+            title: "Welcome Back",
+            description: "Enter your email and password to access your account."
         });
     }
 
@@ -39,26 +39,26 @@ const Auth = () => {
         switch (step) {
             case 1:
                 setHeader({
-                    title: "Signup - Step 1",
-                    description: "Enter your personal information"
+                    title: "Create your account",
+                    description: "Step 1 of 4: Enter your name."
                 });
                 break;
             case 2:
                 setHeader({
-                    title: "Signup - Step 2",
-                    description: "Enter your contact details"
+                    title: "Enter Your Email",
+                    description: "Step 2 of 4: Set up your contact information"
                 });
                 break;
             case 3:
                 setHeader({
-                    title: "Signup - Step 3",
-                    description: "Create a password"
-                });
+                    title: "Verify Your Email",
+                    description: "Step 3 of 4: Enter the OTP sent to your email."
+                }); 
                 break;
             case 4:
                 setHeader({
-                    title: "Signup - Complete",
-                    description: "Review and submit your details"
+                    title: "Secure Your Account",
+                    description: "Step 4 of 4:  Create a password and confirm."
                 });
                 break;
             default:

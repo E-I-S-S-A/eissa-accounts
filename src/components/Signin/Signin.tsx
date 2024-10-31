@@ -66,7 +66,7 @@ const Signin = () => {
 
                     </p>
                 </div>
-                <EissaButton label="Submit" type="submit" variant="primary" />
+                <EissaButton label="Sign In" type="submit" variant="primary" />
             </form>
         </div>
     );
