@@ -17,7 +17,7 @@ form .fields {
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    gap: 0.3rem;
+    gap: 1rem;
 }
 
 form .fields>* {
@@ -26,6 +26,8 @@ form .fields>* {
 }
 
 .fields .create_account_text{
+    display: flex;
+    justify-content: space-between;
     font-size: 0.8rem;
 }
 
