@@ -59,7 +59,7 @@ const Signin = () => {
                             },
                         }}
                     />
-                    <p className={styles.create_account_text}>
+                    <div className={styles.create_account_text}>
                         <div>
                             Don't have an account?
                             <Link to={ROUTES.auth.signup} className={styles.link}>
@@ -69,7 +69,7 @@ const Signin = () => {
                         <Link to={ROUTES.auth.forgotPassword} className={styles.link}>
                             Forgot password?
                         </Link>
-                    </p>
+                    </div>
                 </div>
                 <EissaButton label="Sign In" type="submit" variant="primary" />
             </form>
