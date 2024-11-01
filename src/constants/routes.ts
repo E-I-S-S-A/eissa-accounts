@@ -3,5 +3,6 @@ export const ROUTES = {
         root: "",
         signin: "/signin",
         signup: "/signup",
+        forgotPassword: "/forgot-password",
     },
 };

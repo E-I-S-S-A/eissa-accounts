@@ -22,20 +22,24 @@ const Auth = () => {
 
     const handleLocation = () => {
         const isSignup = location.pathname.includes(ROUTES.auth.signup);
+        const isSignIn = location.pathname.includes(ROUTES.auth.signin);
+        const isForgotPassword = location.pathname.includes(ROUTES.auth.forgotPassword);
 
         if (isSignup) {
-            handleDetails();
-            return;
+            handleSignupDetails();
         }
-
-        setHeader({
-            title: "Welcome Back",
-            description: "Enter your email and password to access your account."
-        });
+        else if (isSignIn) {
+            setHeader({
+                title: "Sign In",
+                description: "Enter your email and password to access your account."
+            });
+        }
+        else if (isForgotPassword) {
+            handleForgotPasswordDetails();
+        }
     }
 
-
-    const handleDetails = () => {
+    const handleSignupDetails = () => {
         switch (step) {
             case 1:
                 setHeader({
@@ -53,12 +57,40 @@ const Auth = () => {
                 setHeader({
                     title: "Verify Your Email",
                     description: "Step 3 of 4: Enter the OTP sent to your email."
-                }); 
+                });
                 break;
             case 4:
                 setHeader({
                     title: "Secure Your Account",
                     description: "Step 4 of 4:  Create a password and confirm."
+                });
+                break;
+            default:
+                setHeader({
+                    title: "",
+                    description: ""
+                });
+        }
+    }
+
+    const handleForgotPasswordDetails = () => {
+        switch (step) {
+            case 1:
+                setHeader({
+                    title: "Forgot Password",
+                    description: "Step 1 of 3: Enter your email to receive OTP"
+                });
+                break;
+            case 2:
+                setHeader({
+                    title: "Verify Your Identity",
+                    description: "Step 2 of 3: Enter the OTP sent to your email"
+                });
+                break;
+            case 3:
+                setHeader({
+                    title: "Reset Your Password",
+                    description: "Step 3 of 3: Create a new password to secure your account."
                 });
                 break;
             default:

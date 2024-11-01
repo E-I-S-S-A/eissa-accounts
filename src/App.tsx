@@ -9,6 +9,7 @@ import Auth from './pages/Auth/Auth';
 import Signin from './components/Signin/Signin';
 import Signup from './components/Signup/Signup';
 import { ROUTES } from './constants/routes';
+import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: ROUTES.auth.signup,
         element: <Signup />
+      },
+      {
+        path: ROUTES.auth.forgotPassword,
+        element: <ForgotPassword />
       }
     ]
   },
