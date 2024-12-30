@@ -44,25 +44,31 @@ const Auth = () => {
             case 1:
                 setHeader({
                     title: "Create your account",
-                    description: "Step 1 of 4: Enter your name."
+                    description: "Step 1 of 5: Enter your name."
                 });
                 break;
             case 2:
                 setHeader({
                     title: "Enter Your Email",
-                    description: "Step 2 of 4: Set up your contact information"
+                    description: "Step 2 of 5: Set up your contact information"
                 });
                 break;
             case 3:
                 setHeader({
                     title: "Verify Your Email",
-                    description: "Step 3 of 4: Enter the OTP sent to your email."
+                    description: "Step 3 of 5: Enter the OTP sent to your email."
                 });
                 break;
             case 4:
                 setHeader({
+                    title: "Create Your Eissa ID",
+                    description: "Step 4 of 5: Lets you access & share data across all EISSA apps."
+                });
+                break;
+            case 5:
+                setHeader({
                     title: "Secure Your Account",
-                    description: "Step 4 of 4:  Create a password and confirm."
+                    description: "Step 5 of 5:  Create a password and confirm."
                 });
                 break;
             default:

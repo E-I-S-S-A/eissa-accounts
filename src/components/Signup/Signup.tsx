@@ -8,6 +8,7 @@ import { ROUTES } from "../../constants/routes";
 import { REGEXES } from "../../constants/regexes";
 
 type FormData = {
+    userId: string;
     firstName: string;
     lastName: string;
     email: string;
@@ -53,13 +54,14 @@ const Signup = () => {
             1: ["firstName"],
             2: ["email"],
             3: ["otp"],
-            4: ["password", "confirmPassword"],
+            4: ["userId"],
+            5: ["password", "confirmPassword"],
         };
 
         const isValid = await trigger(fieldsToValidate[step]);
 
         if (isValid) {
-            if (step === 4) {
+            if (step === 5) {
                 console.log(data);
             }
             setStep((prev) => prev + 1);
@@ -133,6 +135,22 @@ const Signup = () => {
                     }
                     {
                         step === 4 &&
+                        <EissaInputField
+                            label="Eissa Id"
+                            name="userId"
+                            register={register}
+                            error={errors?.userId}
+                            rules={{
+                                required: {
+                                    message: "Eissa Id is required",
+                                    value: true,
+                                },
+                            }}
+                            isTouched={touchedFields?.userId}
+                        />
+                    }
+                    {
+                        step === 5 &&
                         <>
                             <EissaInputField
                                 label="Password"
@@ -195,7 +213,7 @@ const Signup = () => {
                         />
                     )}
                     <EissaButton
-                        label={step < 4 ? "Next" : "Sign Up"}
+                        label={step < 5 ? "Next" : "Sign Up"}
                         type="submit"
                         variant="primary"
                     />
