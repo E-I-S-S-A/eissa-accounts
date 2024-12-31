@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { ROUTES } from "../../constants/routes";
 import { REGEXES } from "../../constants/regexes";
 import useUserHook from "../../hooks/useUserHook";
+import { User } from "../../entities/User";
 
 type FormData = {
     userId: string;
@@ -81,14 +82,13 @@ const Signup = () => {
                     checkUserIdAvailability(data)
                     break;
                 case 5:
-                    setStep((prev) => prev + 1);
-                    console.log(data)
+                    createAccount(data);
                     break;
-
                 default:
                     break;
             }
         }
+        setIsLoading(false);
     };
 
     const checkEmailAndSendOtp = async (data: FormData) => {
@@ -118,6 +118,7 @@ const Signup = () => {
     }
 
     const verifyUserOtp = async (data: FormData): Promise<void> => {
+        setIsLoading(true);
         try {
             const result = await verifyOtp(data.email, data.otp);
             if (result) {
@@ -129,15 +130,17 @@ const Signup = () => {
                     message: error.message
                 })
         }
+        setIsLoading(false);
     }
 
     const checkUserIdAvailability = async (data: FormData) => {
+        setIsLoading(true);
         try {
             const isExists = await checkIfUserIdExists(data.userId);
             if (!isExists) {
                 setStep((prev) => prev + 1);
             }
-            else{
+            else {
                 setError("userId", {
                     message: "Eissa ID already exists"
                 })
@@ -149,6 +152,32 @@ const Signup = () => {
                     message: error.message
                 })
         }
+        setIsLoading(false);
+    }
+
+    const createAccount = async (data: FormData) => {
+        setIsLoading(true);
+        try {
+            const user: User = {
+                email: data.email,
+                firstName: data.firstName,
+                lastName: data.lastName,
+                password: data.confirmPassword,
+                userId: data.userId
+            }
+
+            const createResult = await signup(user);
+            if (createResult) {
+                setStep((prev) => prev + 1);
+
+            }
+        } catch (error) {
+            if (error instanceof Error)
+                setError("userId", {
+                    message: error.message
+                })
+        }
+        setIsLoading(false);
     }
 
     return (
