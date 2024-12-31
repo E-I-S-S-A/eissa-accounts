@@ -6,6 +6,7 @@ import { useOutletContext } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../constants/routes";
 import { REGEXES } from "../../constants/regexes";
+import useUserHook from "../../hook/useUserHook";
 
 type FormData = {
     userId: string;
@@ -31,6 +32,7 @@ const Signup = () => {
         formState: { errors, touchedFields },
         trigger,
     } = useForm<FormData>({ mode: "all" });
+    const { isEmailExists } = useUserHook();
 
     const password = watch("password");
     const isShowPassword = watch("isShowPassword");
@@ -38,6 +40,7 @@ const Signup = () => {
     const { step, setStep } = useOutletContext<SignupContext>();
 
     useEffect(() => {
+        isEmailExists("a@j.coo")
         return onUnmount();
     }, []);
 
