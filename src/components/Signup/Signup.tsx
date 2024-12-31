@@ -78,8 +78,7 @@ const Signup = () => {
                     verifyUserOtp(data);
                     break;
                 case 4:
-
-                    setStep((prev) => prev + 1);
+                    checkUserIdAvailability(data)
                     break;
                 case 5:
                     setStep((prev) => prev + 1);
@@ -127,6 +126,26 @@ const Signup = () => {
         } catch (error) {
             if (error instanceof Error)
                 setError("otp", {
+                    message: error.message
+                })
+        }
+    }
+
+    const checkUserIdAvailability = async (data: FormData) => {
+        try {
+            const isExists = await checkIfUserIdExists(data.userId);
+            if (!isExists) {
+                setStep((prev) => prev + 1);
+            }
+            else{
+                setError("userId", {
+                    message: "Eissa ID already exists"
+                })
+            }
+
+        } catch (error) {
+            if (error instanceof Error)
+                setError("userId", {
                     message: error.message
                 })
         }
