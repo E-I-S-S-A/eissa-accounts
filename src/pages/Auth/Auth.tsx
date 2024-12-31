@@ -61,8 +61,8 @@ const Auth = () => {
                 break;
             case 4:
                 setHeader({
-                    title: "Create Your Eissa ID",
-                    description: "Step 4 of 5: Lets you access & share data across all EISSA apps."
+                    title: "Choose Your Eissa Id",
+                    description: "Step 4 of 5: Identifies you across all EISSA apps."
                 });
                 break;
             case 5:

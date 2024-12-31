@@ -31,8 +31,10 @@ const Signup = () => {
         watch,
         formState: { errors, touchedFields },
         trigger,
+        setError
     } = useForm<FormData>({ mode: "all" });
-    const { isEmailExists, sendOtp, verifyOtp, signup, isUserIdExists } = useUserHook();
+    const { checkIfEmailExists, sendOtp, verifyOtp, signup, checkIfUserIdExists } = useUserHook();
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const password = watch("password");
     const isShowPassword = watch("isShowPassword");
@@ -40,7 +42,6 @@ const Signup = () => {
     const { step, setStep } = useOutletContext<SignupContext>();
 
     useEffect(() => {
-        isUserIdExists("okok133")
         return onUnmount();
     }, []);
 
@@ -64,12 +65,72 @@ const Signup = () => {
         const isValid = await trigger(fieldsToValidate[step]);
 
         if (isValid) {
-            if (step === 5) {
-                console.log(data);
+
+            switch (step) {
+                case 1:
+                    setStep((prev) => prev + 1);
+
+                    break;
+                case 2:
+                    checkEmailAndSendOtp(data);
+                    break;
+                case 3:
+                    verifyUserOtp(data);
+                    break;
+                case 4:
+
+                    setStep((prev) => prev + 1);
+                    break;
+                case 5:
+                    setStep((prev) => prev + 1);
+                    console.log(data)
+                    break;
+
+                default:
+                    break;
             }
-            setStep((prev) => prev + 1);
         }
     };
+
+    const checkEmailAndSendOtp = async (data: FormData) => {
+        setIsLoading(true);
+        try {
+            const isEmailExists = await checkIfEmailExists(data.email);
+            if (isEmailExists) {
+                setError("email", {
+                    message: "Email already exists"
+                })
+
+                return;
+            }
+
+            const isOtpSent = await sendOtp(data.email);
+            if (isOtpSent) {
+                setStep((prev) => prev + 1);
+            }
+
+        } catch (error) {
+            if (error instanceof Error)
+                setError("email", {
+                    message: error.message
+                })
+        }
+        setIsLoading(false);
+    }
+
+    const verifyUserOtp = async (data: FormData): Promise<void> => {
+        try {
+            const result = await verifyOtp(data.email, data.otp);
+            if (result) {
+                setStep((prev) => prev + 1);
+            }
+        } catch (error) {
+            if (error instanceof Error)
+                setError("otp", {
+                    message: error.message
+                })
+        }
+    }
 
     return (
         <div className={styles.signup_container}>
@@ -219,6 +280,7 @@ const Signup = () => {
                         label={step < 5 ? "Next" : "Sign Up"}
                         type="submit"
                         variant="primary"
+                        isLoading={isLoading}
                     />
                 </div>
             </form>

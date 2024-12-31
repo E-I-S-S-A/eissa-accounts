@@ -4,7 +4,7 @@ import { User } from "../entities/User";
 const useUserHook = () => {
     const ACCOUNTS_BASE_URL = `${process.env.REACT_APP_API_BASE_URL}/accounts`;
 
-    const isEmailExists = async (email: string): Promise<boolean> => {
+    const checkIfEmailExists = async (email: string): Promise<boolean> => {
         const result = await fetch(
             `${ACCOUNTS_BASE_URL}/email-exists?email=${email}`
         );
@@ -18,7 +18,7 @@ const useUserHook = () => {
         throw new Error("Failed to check email");
     };
 
-    const isUserIdExists = async (userId: string): Promise<boolean> => {
+    const checkIfUserIdExists = async (userId: string): Promise<boolean> => {
         const result = await fetch(
             `${ACCOUNTS_BASE_URL}/userId-exists?userId=${userId}`
         );
@@ -87,11 +87,11 @@ const useUserHook = () => {
     };
 
     return {
-        isEmailExists,
+        checkIfEmailExists,
         sendOtp,
         verifyOtp,
         signup,
-        isUserIdExists
+        checkIfUserIdExists
     };
 };
 
