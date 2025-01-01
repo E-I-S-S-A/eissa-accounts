@@ -1,25 +1,13 @@
-import { useForm } from "react-hook-form";
 import { EissaButton, EissaInputField } from "react-reusable-elements";
 import styles from "./Signin.module.css";
 import { REGEXES } from "../../constants/regexes";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../constants/routes";
-
-type FormData = {
-    email: string;
-    password: string;
-};
+import useSigninHook from "./Signin.hook";
 
 const Signin = () => {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors, touchedFields },
-    } = useForm<FormData>({ mode: "all" });
-
-    const onSubmit = (data: FormData) => {
-        console.log(data);
-    };
+   
+    const {handleSubmit, onSubmit, register, errors, touchedFields} = useSigninHook();
 
     return (
         <div className={styles.signin_container}>
