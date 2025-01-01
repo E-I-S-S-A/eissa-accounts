@@ -86,12 +86,34 @@ const useUserHook = () => {
         throw new Error("Failed to sign up");
     };
 
+    const signin = async (user: User): Promise<boolean> => {
+        const result = await fetch(`${ACCOUNTS_BASE_URL}/signin`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(user),
+        });
+        
+        if (result.status === HttpStatus.OK) {
+            const resultJson = await result.json();
+            console.log({result})
+            console.log({resultJson})
+            return true;
+        } else if (result.status === HttpStatus.UNAUTHORIZED) {
+            throw new Error("Incorreact email or password");
+        }
+
+        throw new Error("Failed to sign up");
+    };
+
     return {
         checkIfEmailExists,
         sendOtp,
         verifyOtp,
         signup,
-        checkIfUserIdExists
+        checkIfUserIdExists,
+        signin
     };
 };
 

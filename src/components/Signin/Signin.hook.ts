@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
-
+import useUserHook from "../../hooks/useUserHook";
+import { User } from "../../entities/User";
 
 type FormData = {
     email: string;
@@ -11,10 +12,26 @@ const useSigninHook = () => {
         register,
         handleSubmit,
         formState: { errors, touchedFields },
+        setError,
     } = useForm<FormData>({ mode: "all" });
+    const { signin } = useUserHook();
 
-    const onSubmit = (data: FormData) => {
-        console.log(data);
+    const onSubmit = async (data: FormData) => {
+        try {
+            const user: User = {
+                email: data.email,
+                password: data.password,
+            };
+            const signinResult = await signin(user);
+            if(signinResult){
+                alert("Signde in")
+            }
+        } catch (error) {
+            if (error instanceof Error)
+                setError("root", {
+                    message: error.message,
+                });
+        }
     };
 
     return {
