@@ -93,6 +93,7 @@ const useUserHook = () => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(user),
+            credentials: "include"
         });
         
         if (result.status === HttpStatus.OK) {
