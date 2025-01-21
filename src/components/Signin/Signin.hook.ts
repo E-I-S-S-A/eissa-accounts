@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import useUserHook from "../../hooks/useUserHook";
 import { User } from "../../entities/User";
+import { useSearchParams } from "react-router-dom";
 
 type FormData = {
     email: string;
@@ -15,6 +16,7 @@ const useSigninHook = () => {
         setError,
     } = useForm<FormData>({ mode: "all" });
     const { signin } = useUserHook();
+    const [searchParams] = useSearchParams();
 
     const onSubmit = async (data: FormData) => {
         try {
@@ -23,12 +25,16 @@ const useSigninHook = () => {
                 password: data.password,
             };
             const signinResult = await signin(user);
-            if(signinResult){
-                alert("Signde in")
+            if (signinResult) {
+                
+                const nextUrl = searchParams.get("next");
+                if (nextUrl) {
+                    window.location.replace(nextUrl);
+                }
             }
         } catch (error) {
             if (error instanceof Error)
-                setError("root", {
+                setError("password", {
                     message: error.message,
                 });
         }
