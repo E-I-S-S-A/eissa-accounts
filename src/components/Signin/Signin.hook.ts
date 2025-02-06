@@ -17,6 +17,7 @@ const useSigninHook = () => {
     } = useForm<FormData>({ mode: "all" });
     const { signin } = useUserHook();
     const [searchParams] = useSearchParams();
+    const ALL_PRODUCTS_URL = process.env.REACT_APP_ALL_PRODUCTS || "";
 
     const onSubmit = async (data: FormData) => {
         try {
@@ -26,10 +27,11 @@ const useSigninHook = () => {
             };
             const signinResult = await signin(user);
             if (signinResult) {
-                
                 const nextUrl = searchParams.get("next");
                 if (nextUrl) {
                     window.location.replace(nextUrl);
+                } else {
+                    window.location.replace(ALL_PRODUCTS_URL);
                 }
             }
         } catch (error) {

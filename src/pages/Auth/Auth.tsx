@@ -1,9 +1,10 @@
 import styles from "./Auth.module.css"
 import BrandLogo from "../../assets/svg/brand-logo-curved.svg"
 import Signin from "../../components/Signin/Signin";
-import { Outlet, useLocation, useSearchParams } from "react-router-dom";
+import { Outlet, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ROUTES } from "../../constants/routes";
+import useUserHook from "../../hooks/useUserHook";
 
 const Auth = () => {
 
@@ -13,12 +14,26 @@ const Auth = () => {
         title: "Default Title",
         description: "Default Description"
     });
+    const { getUser } = useUserHook();
+    const navigate = useNavigate();
 
     const [step, setStep] = useState<number>(1);
 
     useEffect(() => {
+        checkIfSignedIn();
         handleLocation()
     }, [step, location])
+
+    const checkIfSignedIn = async () => {
+        try {
+            const user = await getUser();
+            if (user) {
+                navigate(ROUTES.account.account)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const handleLocation = () => {
         const isSignup = location.pathname.includes(ROUTES.auth.signup);

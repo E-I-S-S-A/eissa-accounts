@@ -37,7 +37,7 @@ const useSignupHook = () => {
         checkIfUserIdExists,
     } = useUserHook();
     const [isLoading, setIsLoading] = useState<boolean>(false);
-
+    const ALL_PRODUCTS_URL = process.env.REACT_APP_ALL_PRODUCTS || "";
     const password = watch("password");
     const isShowPassword = watch("isShowPassword");
 
@@ -170,6 +170,8 @@ const useSignupHook = () => {
                 const nextUrl = searchParams.get("next");
                 if (nextUrl) {
                     window.location.replace(nextUrl);
+                } else {
+                    window.location.replace(ALL_PRODUCTS_URL);
                 }
             }
             setIsLoading(false);

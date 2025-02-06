@@ -10,6 +10,7 @@ import Signin from './components/Signin/Signin';
 import Signup from './components/Signup/Signup';
 import { ROUTES } from './constants/routes';
 import ForgotPassword from './components/ForgotPassword/ForgotPassword';
+import Account from './pages/Account/Account';
 
 const router = createBrowserRouter([
   {
@@ -18,8 +19,8 @@ const router = createBrowserRouter([
     children: [
       {
         path: ROUTES.auth.root,
-        element: <Navigate to={ROUTES.auth.signin}/>
-        
+        element: <Navigate to={ROUTES.auth.signin} />
+
       },
       {
         path: ROUTES.auth.signin,
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       }
     ]
   },
+  {
+    path: ROUTES.account.account,
+    element: <Account />
+  }
 ]);
 
 

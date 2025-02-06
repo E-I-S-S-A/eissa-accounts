@@ -75,7 +75,7 @@ const useUserHook = () => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(user),
-            credentials: "include"
+            credentials: "include",
         });
 
         if (result.status === HttpStatus.CREATED) {
@@ -94,9 +94,9 @@ const useUserHook = () => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(user),
-            credentials: "include"
+            credentials: "include",
         });
-        
+
         if (result.status === HttpStatus.OK) {
             return true;
         } else if (result.status === HttpStatus.UNAUTHORIZED) {
@@ -112,18 +112,16 @@ const useUserHook = () => {
             headers: {
                 "Content-Type": "application/json",
             },
-            credentials: "include"
+            credentials: "include",
         });
 
-        if(result.status === HttpStatus.OK){
+        if (result.status === HttpStatus.OK) {
             const user = await result.json();
-            console.log(user)
+            return true;
         }
-        
+
         throw new Error("Failed to get user");
     };
-
-
 
     return {
         checkIfEmailExists,
@@ -132,7 +130,7 @@ const useUserHook = () => {
         signup,
         checkIfUserIdExists,
         signin,
-        getUser
+        getUser,
     };
 };
 
