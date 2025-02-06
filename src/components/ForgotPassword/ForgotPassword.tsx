@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { EissaButton, EissaCheckbox, EissaInputField, } from "react-reusable-elements";
 import styles from "./ForgotPassword.module.css";
 import { useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useLocation, useOutletContext } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../constants/routes";
 import { REGEXES } from "../../constants/regexes";
@@ -28,6 +28,7 @@ const ForgotPassword = () => {
         formState: { errors, touchedFields },
         trigger,
     } = useForm<FormData>({ mode: "all" });
+    const location = useLocation();
 
     const password = watch("password");
     const isShowPassword = watch("isShowPassword");
@@ -149,7 +150,7 @@ const ForgotPassword = () => {
                         <p className={styles.signin_text}>
                             Already know your password?
                             <Link
-                                to={ROUTES.auth.signin}
+                                to={{ pathname: ROUTES.auth.signin, search: location.search }}
                                 className={styles.link}
                             >
                                 Sign In

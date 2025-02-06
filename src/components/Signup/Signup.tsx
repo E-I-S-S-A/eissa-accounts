@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { EissaButton, EissaCheckbox, EissaInputField, } from "react-reusable-elements";
 import styles from "./Signup.module.css";
 import { useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useLocation, useOutletContext } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../constants/routes";
 import { REGEXES } from "../../constants/regexes";
@@ -23,6 +23,8 @@ const Signup = () => {
         isLoading,
         password
     } = useSignupHook();
+    const location = useLocation();
+    
     return (
         <div className={styles.signup_container}>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -150,7 +152,7 @@ const Signup = () => {
                         <p className={styles.signin_text}>
                             Already have an account?
                             <Link
-                                to={ROUTES.auth.signin}
+                                to={{pathname:ROUTES.auth.signin, search: location.search}}
                                 className={styles.link}
                             >
                                 Sign In

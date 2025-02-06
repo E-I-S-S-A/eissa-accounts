@@ -1,13 +1,14 @@
 import { EissaButton, EissaInputField } from "react-reusable-elements";
 import styles from "./Signin.module.css";
 import { REGEXES } from "../../constants/regexes";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ROUTES } from "../../constants/routes";
 import useSigninHook from "./Signin.hook";
 
 const Signin = () => {
-   
-    const {handleSubmit, onSubmit, register, errors, touchedFields} = useSigninHook();
+
+    const { handleSubmit, onSubmit, register, errors, touchedFields } = useSigninHook();
+    const location = useLocation();
 
     return (
         <div className={styles.signin_container}>
@@ -50,11 +51,11 @@ const Signin = () => {
                     <div className={styles.create_account_text}>
                         <div>
                             Don't have an account?
-                            <Link to={ROUTES.auth.signup} className={styles.link}>
+                            <Link to={{ pathname: ROUTES.auth.signup, search: location.search }} className={styles.link}>
                                 Sign Up
                             </Link>
                         </div>
-                        <Link to={ROUTES.auth.forgotPassword} className={styles.link}>
+                        <Link to={{pathname:ROUTES.auth.forgotPassword, search:location.search}} className={styles.link}>
                             Forgot password?
                         </Link>
                     </div>
