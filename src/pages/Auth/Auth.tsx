@@ -14,7 +14,7 @@ const Auth = () => {
         title: "Default Title",
         description: "Default Description"
     });
-    const { getUser } = useUserHook();
+    const { getAndSetUser } = useUserHook();
     const navigate = useNavigate();
 
     const [step, setStep] = useState<number>(1);
@@ -26,7 +26,7 @@ const Auth = () => {
 
     const checkIfSignedIn = async () => {
         try {
-            const user = await getUser();
+            const user = await getAndSetUser();
             if (user) {
                 navigate(ROUTES.account.account)
             }

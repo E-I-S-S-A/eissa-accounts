@@ -4,7 +4,7 @@ import { ROUTES } from "../../constants/routes";
 import { useEffect } from "react";
 
 const Account = () => {
-    const { getUser } = useUserHook();
+    const { getAndSetUser } = useUserHook();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -13,7 +13,7 @@ const Account = () => {
 
     const checkIfSignedIn = async () => {
         try {
-            const user = await getUser();
+            const user = await getAndSetUser();
             if (!user) {
                 navigate(ROUTES.auth.root, { replace: true });
             }
