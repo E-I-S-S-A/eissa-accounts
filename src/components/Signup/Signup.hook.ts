@@ -2,7 +2,7 @@ import { User } from "../../entities/User";
 import { useForm } from "react-hook-form";
 import useUserHook from "../../hooks/useUserHook";
 import { useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, useSearchParams } from "react-router-dom";
 
 type FormData = {
     userId: string;
@@ -42,6 +42,7 @@ const useSignupHook = () => {
     const isShowPassword = watch("isShowPassword");
 
     const { step, setStep } = useOutletContext<SignupContext>();
+    const [searchParams] = useSearchParams();
 
     useEffect(() => {
         return onUnmount();
@@ -166,7 +167,10 @@ const useSignupHook = () => {
 
             const createResult = await signup(user);
             if (createResult) {
-                setStep((prev) => prev + 1);
+                const nextUrl = searchParams.get("next");
+                if (nextUrl) {
+                    window.location.replace(nextUrl);
+                }
             }
             setIsLoading(false);
         } catch (error) {
