@@ -1,0 +1,10 @@
+.container {
+    list-style: none;
+    margin: 0;
+    padding: 0 2rem;
+    border-right: 1px solid var(--light-grey);
+}
+
+.container li {
+    margin-top: 2rem;
+}

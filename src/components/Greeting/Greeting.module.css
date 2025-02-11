@@ -1,0 +1,24 @@
+.content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: calc(100vh - 4rem);
+    gap: 2rem;
+    width: 100%;
+}
+
+.content .greeting {
+    font-size: 2.5rem;
+}
+
+.greeting strong {
+    text-transform: capitalize;
+}
+
+.products {
+    width: 50%;
+}
+
+.product {
+    height: 5rem;
+}

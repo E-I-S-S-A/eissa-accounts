@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import styles from "./Account.module.css"
 import { User } from "../../entities/User";
-import KeepIcon from "../../assets/products/keep-icon.svg"
-import ProfileModal from "../../components/ProfileModal/ProfileModal";
+import Sidebar from "../../components/Sidebar/Sidebar";
+import Greeting from "../../components/Greeting/Greeting";
 
 const Account = () => {
     const { getAndSetUser } = useUserHook();
@@ -44,17 +44,10 @@ const Account = () => {
 
     return <div className={styles.main_container}>
         <Navbar onAvatarClick={openProfileModal} />
-        <div className={styles.content}>
-            <p className={styles.greeting}>Welcome,
-                <strong>
-                    {" " + (user?.firstName || "")}
-                </strong>
-                !</p>
-            <div className={styles.products}>
-                <img src={KeepIcon} alt="Eissa Keep" className={styles.product} />
-            </div>
+        <div className={styles.layout}>
+            <Sidebar />
+            <Greeting userName={user?.firstName || ""} />
         </div>
-        <ProfileModal isVisible={isVisible} onClose={closeProfileModal} />
     </div>
 }
 
