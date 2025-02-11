@@ -1,0 +1,32 @@
+.main_conatiner {
+    height: 4rem;
+    background-color: var(--dark-grey);
+    border-bottom: 1px solid var(--light-grey);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem 0 2rem;
+    gap: 2rem;
+}
+
+.brand {
+    display: flex;
+    align-items: end;
+    gap: 1rem;
+}
+
+.main_conatiner .actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.brand_logo {
+    height: 2.5rem;
+}
+
+.main_conatiner .brand .brand_name {
+    font-size: 1.8rem;
+    color: var(--white);
+}

@@ -4,7 +4,7 @@
 
 body {
   margin: 0;
-  font-family: sans-serif;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -19,4 +19,7 @@ code {
   --brand-color: rgba(10, 87, 209, 255);
   --background-color-1: rgba(240, 244, 249, 255);
   --background-color-2: white;
+  --dark-grey: #202124;
+  --light-grey: #525355;
+  --white: white
 }
