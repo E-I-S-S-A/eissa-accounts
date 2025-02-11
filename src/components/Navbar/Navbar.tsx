@@ -5,11 +5,14 @@ import { useEffect, useState } from "react";
 import useUserHook from "../../hooks/useUserHook";
 import { User } from "../../entities/User";
 
+type NavbarProps = {
+    onAvatarClick: () => void
+}
 
-
-const Navbar = () => {
+const Navbar = (props: NavbarProps) => {
     const { getAndSetUser } = useUserHook();
     const [user, setUser] = useState<User | null>(null);
+    const { onAvatarClick } = props;
 
     useEffect(() => {
         getUser();
@@ -31,7 +34,7 @@ const Navbar = () => {
             <div className={styles.brand_name}>Accounts</div>
         </div>
         <div className={styles.actions}>
-            <EissaAvatar height={40} name={user?.firstName} img={user?.avatar} fontSize={20}/>
+            <EissaAvatar height={40} name={user?.firstName} img={user?.avatar} fontSize={20} CTA={onAvatarClick} />
         </div>
     </div>
 }

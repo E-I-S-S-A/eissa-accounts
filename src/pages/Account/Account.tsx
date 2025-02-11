@@ -6,11 +6,13 @@ import Navbar from "../../components/Navbar/Navbar";
 import styles from "./Account.module.css"
 import { User } from "../../entities/User";
 import KeepIcon from "../../assets/products/keep-icon.svg"
+import ProfileModal from "../../components/ProfileModal/ProfileModal";
 
 const Account = () => {
     const { getAndSetUser } = useUserHook();
     const navigate = useNavigate();
     const [user, setUser] = useState<User | null>(null);
+    const [isVisible, setIsVisible] = useState<boolean>(false)
 
     useEffect(() => {
         checkIfSignedIn();
@@ -32,18 +34,27 @@ const Account = () => {
         }
     }
 
+    const openProfileModal = () => {
+        setIsVisible(prev => !prev)
+    }
+
+    const closeProfileModal = () => {
+        setIsVisible(prev => !prev)
+    }
+
     return <div className={styles.main_container}>
-        <Navbar />
+        <Navbar onAvatarClick={openProfileModal} />
         <div className={styles.content}>
             <p className={styles.greeting}>Welcome,
                 <strong>
-                    {" " + user?.firstName}
+                    {" " + (user?.firstName || "")}
                 </strong>
                 !</p>
             <div className={styles.products}>
                 <img src={KeepIcon} alt="Eissa Keep" className={styles.product} />
             </div>
         </div>
+        <ProfileModal isVisible={isVisible} onClose={closeProfileModal} />
     </div>
 }
 
